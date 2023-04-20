@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.pucuk.binar_challenge_ch_4.ui.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_splashFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.pucuk.binar_challenge_ch_4.ui.auth.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.pucuk.binar_challenge_ch_4.ui.auth.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register">
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/insertFragment"
+        android:name="com.pucuk.binar_challenge_ch_4.ui.home.InsertFragment"
+        android:label="fragment_insert"
+        tools:layout="@layout/fragment_insert" />
+    <dialog
+        android:id="@+id/updateFragment"
+        android:name="com.pucuk.binar_challenge_ch_4.ui.home.UpdateFragment"
+        android:label="fragment_update"
+        tools:layout="@layout/fragment_update" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.pucuk.binar_challenge_ch_4.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_deleteFragment"
+            app:destination="@id/deleteFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_insertFragment"
+            app:destination="@id/insertFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_updateFragment"
+            app:destination="@id/updateFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/deleteFragment"
+        android:name="com.pucuk.binar_challenge_ch_4.ui.home.DeleteFragment"
+        android:label="fragment_delete"
+        tools:layout="@layout/fragment_delete" />
+</navigation>

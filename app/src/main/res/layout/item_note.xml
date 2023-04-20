@@ -1,0 +1,77 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="note"
+            type="com.pucuk.binar_challenge_ch_4.data.model.Note" />
+
+        <variable
+            name="itemNoteClick"
+            type="com.pucuk.binar_challenge_ch_4.ui.adapter.NotesAdapter.ItemClickListener" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/note_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/note_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{note.title}"
+                android:textColor="@android:color/black"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/note_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/note_title"
+                android:text="@{note.content}"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:id="@+id/edit_delete_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/edit_note_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:onClick="@{() -> itemNoteClick.editNote(note)}"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_edit" />
+
+                <ImageButton
+                    android:id="@+id/delete_note_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:onClick="@{() -> itemNoteClick.deleteNote(note)}"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_delete" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>
