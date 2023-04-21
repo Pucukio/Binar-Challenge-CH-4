@@ -36,7 +36,7 @@ class RegisterFragment : Fragment() {
                 val username = etUsername.text.toString().trim()
                 val password = etPassword.text.toString().trim()
                 val confirmpassword = etConfirmpassword.text.toString().trim()
-                if (password.length >= 5 && password == confirmpassword) {
+                if (password.length >= 2 && password == confirmpassword) {
                     viewModel.insertUser(User(username = username, password = password))
                     Toast.makeText(requireContext(), "Success Register", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
