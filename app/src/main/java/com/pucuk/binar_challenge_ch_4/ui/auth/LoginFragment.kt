@@ -34,29 +34,34 @@ class LoginFragment : Fragment() {
         binding.apply {
             btnLogin.setOnClickListener { mView ->
                 val username = etUsernamme.text.toString().trim()
-                val pw = etPassword.text.toString().trim()
-                viewModel.getUser(username, pw)
-                viewModel.user.observe(viewLifecycleOwner) {
-                    if (it != null) {
-                        Toast.makeText(requireContext(), "Success Login", Toast.LENGTH_SHORT).show()
-                        val bundle = Bundle().apply {
-                            putParcelable("USER_ENTITY", it)
+                val password = etPassword.text.toString().trim()
+                if (username.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
+                } else {
+                    viewModel.getUser(username, password)
+                    viewModel.user.observe(viewLifecycleOwner) {
+                        if (it != null) {
+                            if (it.username == username && it.password == password) {
+                                Toast.makeText(requireContext(), "Success Login", Toast.LENGTH_SHORT).show()
+                                val bundle = Bundle().apply {
+                                    putParcelable("USER_ENTITY", it)
+                                }
+                                findNavController()
+                                    .navigate(R.id.action_loginFragment_to_homeFragment, bundle)
+                            } else {
+                                Toast.makeText(requireContext(), "Username or password is incorrect", Toast.LENGTH_SHORT).show()
+                            }
+                        } else {
+                            Toast.makeText(requireContext(), "Failed Login", Toast.LENGTH_SHORT).show()
                         }
-                        findNavController()
-                            .navigate(R.id.action_loginFragment_to_homeFragment, bundle)
-                    } else {
-                        Toast.makeText(requireContext(), "Failed Login", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
-
             tvRegister.setOnClickListener {
                 it.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
             }
         }
-
     }
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

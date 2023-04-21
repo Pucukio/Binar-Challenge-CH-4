@@ -34,10 +34,10 @@ class RegisterFragment : Fragment() {
         binding.apply {
             btnRegister.setOnClickListener {
                 val username = etUsername.text.toString().trim()
-                val pw = etPassword.text.toString().trim()
-                val cPw = etConfirmpassword.text.toString().trim()
-                if (pw.equals(cPw, false)) {
-                    viewModel.insertUser(User(username = username, password = pw))
+                val password = etPassword.text.toString().trim()
+                val confirmpassword = etConfirmpassword.text.toString().trim()
+                if (password.length >= 5 && password == confirmpassword) {
+                    viewModel.insertUser(User(username = username, password = password))
                     Toast.makeText(requireContext(), "Success Register", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
                 } else {

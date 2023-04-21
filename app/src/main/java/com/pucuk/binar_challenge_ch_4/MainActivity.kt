@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[MyViewModels::class.java]
         setContentView(R.layout.activity_main)
 
+
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_graph_container) as NavHostFragment
 
@@ -72,10 +73,27 @@ class MainActivity : AppCompatActivity() {
                 }
                 return true
             }
+            R.id.logout -> {
+                val previousDestination = navController.previousBackStackEntry?.destination?.id
+                val isLoggedIn = NotePreferences(this).isLoggedIn()
+                if (previousDestination == R.id.loginFragment || isLoggedIn) {
+                    super.onBackPressed()
+                } else {
+                    viewModel.user.observe(this) {
+                        if (it != null) {
+                            NotePreferences(this).setLoggedIn(true)
+                            super.onBackPressed()
+                        } else {
+                            this.navController.navigate(R.id.loginFragment)
+                        }
+                    }
+                }
+            }
         }
-
         return super.onOptionsItemSelected(item)
     }
+
+
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()

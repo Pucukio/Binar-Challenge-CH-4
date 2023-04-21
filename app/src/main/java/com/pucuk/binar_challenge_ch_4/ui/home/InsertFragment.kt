@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -41,11 +42,20 @@ class InsertFragment : DialogFragment() {
             btnAdd.setOnClickListener {
                 val title = etEditTitle.text.toString().trim()
                 val desc = etEditDescription.text.toString().trim()
-                viewModel.insertNote(Note(title = title, content = desc, userId = params?.id!!))
-                val bundle = Bundle().apply {
-                    putParcelable("USER_ENTITY", params)
+                // Cek title dan desc tidak boleh kosong
+                if (title.isNotEmpty() && desc.isNotEmpty()) {
+                    viewModel.insertNote(Note(title = title, content = desc, userId = params?.id!!))
+                    val bundle = Bundle().apply {
+                        putParcelable("USER_ENTITY", params)
+                    }
+                    findNavController().navigate(R.id.homeFragment, bundle)
+                    Toast.makeText(requireContext(), "Catatan Berhasil Dibuat", Toast.LENGTH_SHORT).show()
+                } else {
+                    // Alert Kolom Kosong
+                    val errorMsg = getString(R.string.error_empty_field)
+                    if (title.isEmpty()) etEditTitle.error = errorMsg
+                    if (desc.isEmpty()) etEditDescription.error = errorMsg
                 }
-                findNavController().navigate(R.id.homeFragment, bundle)
             }
         }
     }
@@ -54,6 +64,4 @@ class InsertFragment : DialogFragment() {
         super.onDestroy()
         _binding = null
     }
-
-
 }

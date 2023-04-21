@@ -35,9 +35,11 @@
     <string name="edit_data">edit data</string>
     <string name="masukkan_judul">masukkan judul</string>
     <string name="masukkan_catatan">masukkan catatan</string>
+    <string name="error_empty_field">Kolom tidak boleh kosong.</string>
     <string name="update">update</string>
     <string name="add_data">Add Data</string>
     <string name="filter">Filter</string>
     <string name="ascending">Ascending</string>
     <string name="descending">Descending</string>
+    <string name="logout">Logout</string>
 </resources>

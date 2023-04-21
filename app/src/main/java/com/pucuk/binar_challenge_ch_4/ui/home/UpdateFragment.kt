@@ -38,6 +38,8 @@ class UpdateFragment : DialogFragment() {
         val params = arguments?.getParcelable<User>("USER_ENTITY")
         val params2 = arguments?.getParcelable<Note>("NOTE_ENTITY")
         binding.apply {
+            etEditTitle.setText(params2?.title)
+            etEditDescription.setText(params2?.content)
             btnUpdate.setOnClickListener {
                 val title = etEditTitle.text.toString().trim()
                 val desc = etEditDescription.text.toString().trim()
@@ -61,6 +63,4 @@ class UpdateFragment : DialogFragment() {
         super.onDestroy()
         _binding = null
     }
-
-
 }

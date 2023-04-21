@@ -21,4 +21,12 @@ class NotePreferences(context: Context) {
         return sharedPreferences.getString(key, null)
     }
 
+    fun isLoggedIn(): Boolean {
+        return sharedPreferences.getBoolean("IS_LOGGED_IN", false)
+    }
+
+    fun setLoggedIn(isLoggedIn: Boolean) {
+        sharedPreferences.edit().putBoolean("IS_LOGGED_IN", isLoggedIn).apply()
+    }
+
 }

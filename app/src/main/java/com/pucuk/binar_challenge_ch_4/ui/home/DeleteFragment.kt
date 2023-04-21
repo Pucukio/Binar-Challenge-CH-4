@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.pucuk.binar_challenge_ch_4.R
 import com.pucuk.binar_challenge_ch_4.data.model.Note
 import com.pucuk.binar_challenge_ch_4.data.model.User
@@ -39,16 +40,25 @@ class DeleteFragment : DialogFragment() {
         val params2 = arguments?.getParcelable<Note>("NOTE_ENTITY")
         binding.apply {
             btnDelete.setOnClickListener {
-                viewModel.deleteNote(
-                    Note(
-                        params2?.id, params2?.title!!, params2.content,
-                        params?.id!!
-                    )
-                )
-                val bundle = Bundle().apply {
-                    putParcelable("USER_ENTITY", params)
-                }
-                findNavController().navigate(R.id.homeFragment, bundle)
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle(R.string.dialog_title_delete)
+                    .setMessage(R.string.dialog_message_delete)
+                    .setPositiveButton(R.string.delete) { dialog, which ->
+                        viewModel.deleteNote(
+                            Note(
+                                params2?.id, params2?.title!!, params2.content,
+                                params?.id!!
+                            )
+                        )
+                        val bundle = Bundle().apply {
+                            putParcelable("USER_ENTITY", params)
+                        }
+                        findNavController().navigate(R.id.homeFragment, bundle)
+                    }
+                    .setNegativeButton(R.string.txt_cancel) { dialog, which ->
+                        dialog.dismiss()
+                    }
+                    .show()
             }
             btnCancel.setOnClickListener {
                 dismiss()
